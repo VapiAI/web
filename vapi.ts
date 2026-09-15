@@ -430,6 +430,7 @@ export default class Vapi extends VapiEventEmitter {
     workflow?: CreateWorkflowDTO | string,
     workflowOverrides?: WorkflowOverrides,
     options?: StartCallOptions
+    customParams?: Record<string, any>
   ): Promise<Call | null> {
     const startTime = Date.now();
     
@@ -489,7 +490,8 @@ export default class Vapi extends VapiEventEmitter {
           workflowId: typeof workflow === 'string' ? workflow : undefined,
           workflowOverrides,
           roomDeleteOnUserLeaveEnabled: options?.roomDeleteOnUserLeaveEnabled,
-        })
+        }),
+        customParams
       ).data;
       
       const webCallDuration = Date.now() - webCallStartTime;
